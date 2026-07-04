@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - EduGrade{% endblock %}
+
+{% block content %}
+<div class="page-header" id="admin-dashboard-header">
+    <div>
+        <h1 class="page-title">Admin Dashboard</h1>
+        <p class="page-subtitle">Welcome back, Admin. Here is a summary of the academic performance.</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+        <a href="{{ url_for('admin_students') }}" class="btn btn-primary btn-sm"><i data-lucide="user-plus"></i> Add Student</a>
+        <a href="{{ url_for('admin_results') }}" class="btn btn-secondary btn-sm"><i data-lucide="plus-circle"></i> Input Result</a>
+    </div>
+</div>
+
+<!-- Overview Stats Cards -->
+<div class="dashboard-grid">
+    <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: #6366f1; border-color: rgba(99, 102, 241, 0.3);">
+            <i data-lucide="users"></i>
+        </div>
+        <div class="stat-info">
+            <span class="value stat-value">{{ stats.total_students }}</span>
+            <span class="label stat-label">Total Students</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border-color: rgba(139, 92, 246, 0.3);">
+            <i data-lucide="book-open"></i>
+        </div>
+        <div class="stat-info">
+            <span class="value stat-value">{{ stats.total_subjects }}</span>
+            <span class="label stat-label">Subjects Offered</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(217, 70, 239, 0.15); color: #d946ef; border-color: rgba(217, 70, 239, 0.3);">
+            <i data-lucide="award"></i>
+        </div>
+        <div class="stat-info">
+            <span class="value stat-value">
+                {% if stats.avg_gpa %}
+                    {{ "%.2f"|format(stats.avg_gpa) }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </span>
+            <span class="label stat-label">Average GPA</span>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+            <i data-lucide="check-square"></i>
+        </div>
+        <div class="stat-info">
+            <span class="value stat-value">{{ stats.total_results }}</span>
+            <span class="label stat-label">Grades Recorded</span>
+        </div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-top: 2rem;" class="admin-sections-grid">
+    <!-- Top Performing Students -->
+    <div class="glass-card" style="padding: 1.5rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="trending-up" style="color: var(--accent-indigo);"></i>
+            Top Performing Students
+        </h2>
+        
+        {% if top_students %}
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>GPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in top_students %}
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">{{ student.roll_no }}</td>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.class_name }}</td>
+                                <td>
+                                    <span class="grade-badge grade-a" style="font-size: 0.9rem;">
+                                        {{ "%.2f"|format(student.gpa) }}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                <i data-lucide="inbox" style="width: 40px; height: 40px; margin-bottom: 0.5rem; stroke-width: 1.5;"></i>
+                <p>No student results calculated yet.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Quick Links Widget -->
+    <div class="glass-card" style="padding: 1.5rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="compass" style="color: var(--accent-purple);"></i>
+            Quick Actions
+        </h2>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <a href="{{ url_for('admin_students') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.8rem 1rem;">
+                <i data-lucide="users" style="color: var(--accent-indigo);"></i>
+                Manage Students Record
+            </a>
+            <a href="{{ url_for('admin_subjects') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.8rem 1rem;">
+                <i data-lucide="book-open" style="color: var(--accent-purple);"></i>
+                Manage Academic Subjects
+            </a>
+            <a href="{{ url_for('admin_results') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.8rem 1rem;">
+                <i data-lucide="award" style="color: var(--accent-pink);"></i>
+                Manage Examination Results
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

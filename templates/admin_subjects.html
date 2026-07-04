@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Subjects - EduGrade{% endblock %}
+
+{% block content %}
+<div class="page-header" id="admin-subjects-header">
+    <div>
+        <h1 class="page-title">Manage Subjects</h1>
+        <p class="page-subtitle">Configure curriculum courses and define credit units for automatic GPA calculations.</p>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start;" class="admin-crud-grid">
+    <!-- Form Card: Add or Edit Subject -->
+    <div class="glass-card">
+        {% if edit_subject %}
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent-purple);">
+                <i data-lucide="edit-3"></i>
+                Edit Subject Details
+            </h2>
+            <form action="{{ url_for('admin_edit_subject', subject_id=edit_subject.id) }}" method="POST">
+                <div class="form-group">
+                    <label for="subject_code" class="form-label">Subject Code</label>
+                    <input type="text" id="subject_code" name="subject_code" class="form-control" value="{{ edit_subject.subject_code }}" required placeholder="e.g. CS-101">
+                </div>
+                <div class="form-group">
+                    <label for="subject_name" class="form-label">Subject Name</label>
+                    <input type="text" id="subject_name" name="subject_name" class="form-control" value="{{ edit_subject.subject_name }}" required placeholder="e.g. Introduction to CS">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="credits" class="form-label">Credits Hours</label>
+                    <input type="number" id="credits" name="credits" class="form-control" min="1" max="10" value="{{ edit_subject.credits }}" required placeholder="e.g. 3">
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;"><i data-lucide="save"></i> Update</button>
+                    <a href="{{ url_for('admin_subjects') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        {% else %}
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent-indigo);">
+                <i data-lucide="plus-circle"></i>
+                Register New Course
+            </h2>
+            <form action="{{ url_for('admin_add_subject') }}" method="POST">
+                <div class="form-group">
+                    <label for="subject_code" class="form-label">Subject Code</label>
+                    <input type="text" id="subject_code" name="subject_code" class="form-control" required placeholder="e.g. CS-101">
+                </div>
+                <div class="form-group">
+                    <label for="subject_name" class="form-label">Subject Name</label>
+                    <input type="text" id="subject_name" name="subject_name" class="form-control" required placeholder="e.g. Introduction to CS">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="credits" class="form-label">Credits Hours</label>
+                    <input type="number" id="credits" name="credits" class="form-control" min="1" max="10" value="3" required placeholder="e.g. 3">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i data-lucide="plus-circle"></i> Add Subject</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="glass-card">
+        <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="list"></i>
+            Course Catalog
+        </h2>
+
+        {% if subjects %}
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Subject Code</th>
+                            <th>Subject Name</th>
+                            <th>Credits</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subject in subjects %}
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">{{ subject.subject_code }}</td>
+                                <td style="color: var(--text-primary);">{{ subject.subject_name }}</td>
+                                <td>{{ subject.credits }}</td>
+                                <td style="text-align: right; display: flex; justify-content: flex-end; gap: 0.5rem;">
+                                    <a href="{{ url_for('admin_subjects', edit=subject.id) }}" class="btn btn-secondary btn-sm" title="Edit Course">
+                                        <i data-lucide="edit-2" style="width:14px; height:14px;"></i>
+                                    </a>
+                                    <form action="{{ url_for('admin_delete_subject', subject_id=subject.id) }}" method="POST" style="display: inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete Course" data-confirm="Are you sure you want to delete this course? All associated grade records across all students will be permanently deleted.">
+                                            <i data-lucide="trash-2" style="width:14px; height:14px;"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 3rem 1.5rem; color: var(--text-muted);">
+                <i data-lucide="book-open" style="width: 48px; height: 48px; margin-bottom: 1rem; stroke-width: 1.5;"></i>
+                <h3>No Subjects Defined</h3>
+                <p style="font-size: 0.9rem; margin-top: 0.25rem;">Create a course to begin inputting results for enrolled students.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

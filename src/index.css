@@ -1,0 +1,129 @@
+:root {
+  --bg: #07111a;
+  --bg-top: #0f2130;
+  --panel: rgba(10, 18, 28, 0.72);
+  --text: #9ab2c7;
+  --text-h: #f4fbff;
+  --muted: #7d93a8;
+  --accent: #87f8e1;
+  --accent-2: #ffb76f;
+  --border: rgba(255, 255, 255, 0.08);
+  --heading: Bahnschrift, 'Arial Narrow Bold', sans-serif;
+  --sans: 'Segoe UI Variable Display', 'Trebuchet MS', sans-serif;
+  --mono: Consolas, 'Courier New', monospace;
+  --pointer-x: 0;
+  --pointer-y: 0;
+  font: 16px/1.6 var(--sans);
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(36, 87, 114, 0.5), transparent 34%),
+    radial-gradient(circle at 20% 20%, rgba(29, 207, 193, 0.14), transparent 18%),
+    linear-gradient(180deg, var(--bg-top), var(--bg));
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(131, 249, 228, 0.08), transparent 0 20%),
+    linear-gradient(180deg, #0d1925, #07111a 38%, #08131d 100%);
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  mask-image: radial-gradient(circle at center, black, transparent 82%);
+  opacity: 0.28;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(135, 248, 225, 0.08), transparent 35%),
+    radial-gradient(circle at 100% 20%, rgba(255, 183, 111, 0.08), transparent 22%);
+}
+
+a,
+button {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+#root {
+  width: min(1280px, calc(100% - 2rem));
+  margin: 1rem auto;
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  background: rgba(5, 11, 18, 0.7);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+h1,
+h2,
+h3,
+strong {
+  color: var(--text-h);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--heading);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+h1 {
+  font-size: clamp(3.2rem, 8vw, 6.2rem);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  margin-bottom: 0.9rem;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+}
+
+p {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  #root {
+    width: min(100%, calc(100% - 1rem));
+    margin: 0.5rem auto;
+    border-radius: 1.4rem;
+  }
+}

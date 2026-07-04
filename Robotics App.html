@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboEvents — Discover Robotics Events</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-robot"></i> RoboEvents
+        </div>
+        <nav class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#events">Events</a>
+            <a href="#profile">Profile</a>
+            <a href="#ai-assistant">AI Assistant</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn btn-outline">Login</button>
+            <button class="btn btn-primary">Sign Up</button>
+        </div>
+    </header>
+
+    <!-- Hero Section with 3D Background -->
+    <section id="home" class="hero">
+        <div id="canvas-container"></div> <!-- Three.js Canvas goes here -->
+        <div class="hero-content">
+            <h1>Discover Robotics Events & Showcase Your Skills</h1>
+            <p>Engage with the robotics community, join competitions, and explore global tech events.</p>
+            <button class="btn btn-primary btn-large">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <h2>Platform Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
+                <h3>Competitions</h3>
+                <p>Find local and online robotics competitions to test your engineering skills.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+                <h3>Teams</h3>
+                <p>Join or create teams for upcoming challenges. Collaborate and build together.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-microchip"></i></div>
+                <h3>Portfolio</h3>
+                <p>Showcase your robotics projects, CAD designs, and codebase to the world.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Events -->
+    <section id="events" class="events-section">
+        <div class="section-header">
+            <h2>Featured Events</h2>
+            <a href="#" class="view-all">View all events <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="events-grid">
+            <div class="event-card">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop"
+                    alt="Event" class="event-image">
+                <div class="event-details">
+                    <span class="event-date">Oct 15, 2026</span>
+                    <h3>Global AI & Robotics Summit</h3>
+                    <p>Join the world's leading engineers to discuss the future of automated machines.</p>
+                    <button class="btn btn-outline btn-full">View Details</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=800&auto=format&fit=crop"
+                    alt="Event" class="event-image">
+                <div class="event-details">
+                    <span class="event-date">Nov 02, 2026</span>
+                    <h3>Drone Autonomous Racing</h3>
+                    <p>Compete in the premier autonomous flight racing league. Code your way to victory.</p>
+                    <button class="btn btn-outline btn-full">View Details</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=800&auto=format&fit=crop"
+                    alt="Event" class="event-image">
+                <div class="event-details">
+                    <span class="event-date">Dec 10, 2026</span>
+                    <h3>RoboWars Championship</h3>
+                    <p>The ultimate arena combat challenge. Build, fight, and survive.</p>
+                    <button class="btn btn-outline btn-full">View Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant Section -->
+    <section id="ai-assistant" class="ai-section">
+        <div class="ai-container">
+            <div class="ai-info">
+                <h2>AI Copilot Assistant</h2>
+                <p>Have questions about building a robot or finding the right event? Chat with our specialized robotics
+                    AI to get instant answers.</p>
+                <ul class="ai-benefits">
+                    <li><i class="fa-solid fa-check"></i> Parts recommendations</li>
+                    <li><i class="fa-solid fa-check"></i> Code debugging (Arduino, Python)</li>
+                    <li><i class="fa-solid fa-check"></i> Rulebook explanations</li>
+                </ul>
+            </div>
+            <div class="ai-chat">
+                <div class="chat-window">
+                    <div class="chat-msg bot">Hello! I'm your RoboEvents AI. How can I help you today?</div>
+                    <div class="chat-msg user">Can you help me find events for combat robotics?</div>
+                    <div class="chat-msg bot">Sure! The next major combat robotics event is "RoboWars Championship" on
+                        Dec 10th. Would you like me to show you the registration link?</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" placeholder="Type your message...">
+                    <button class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo"><i class="fa-solid fa-robot"></i> RoboEvents</div>
+        <p>&copy; 2026 RoboEvents. All rights reserved.</p>
+    </footer>
+
+    <!-- Modules for 3D and App Logic -->
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

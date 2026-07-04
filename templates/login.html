@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Login - EduGrade Result System{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="glass-card login-card" id="login-card">
+        <div class="login-header">
+            <div class="login-logo">
+                <i data-lucide="shield-check"></i>
+            </div>
+            <h1 class="page-title" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Welcome Back</h1>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Sign in to access your portal</p>
+        </div>
+
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="form-group">
+                <label for="username" class="form-label">Username / Roll No</label>
+                <div style="position: relative;">
+                    <i data-lucide="user" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-muted);"></i>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter username or roll number" required style="padding-left: 2.75rem;">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.75rem;">
+                <label for="password" class="form-label">Password</label>
+                <div style="position: relative;">
+                    <i data-lucide="lock" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-muted);"></i>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required style="padding-left: 2.75rem;">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem;"><i data-lucide="log-in" style="width:18px; height:18px;"></i> Sign In</button>
+        </form>
+
+        <div style="margin-top: 1.5rem; text-align: center; border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+                <span style="font-weight: 600; color: var(--text-secondary);">Demo Credentials:</span><br>
+                Admin: <code style="background: rgba(255,255,255,0.05); padding: 0.1rem 0.3rem; border-radius: 4px; color: var(--accent-indigo);">admin</code> / <code style="background: rgba(255,255,255,0.05); padding: 0.1rem 0.3rem; border-radius: 4px; color: var(--accent-indigo);">admin123</code><br>
+                Student: Created during enrollment. Log in with roll number as username and password <code style="background: rgba(255,255,255,0.05); padding: 0.1rem 0.3rem; border-radius: 4px; color: var(--accent-indigo);">student123</code>.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

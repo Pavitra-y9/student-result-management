@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Students - EduGrade{% endblock %}
+
+{% block content %}
+<div class="page-header" id="admin-students-header">
+    <div>
+        <h1 class="page-title">Manage Students</h1>
+        <p class="page-subtitle">Add, edit, or remove students from the system. Adding a student automatically creates their portal account.</p>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start;" class="admin-crud-grid">
+    <!-- Form Card: Add or Edit Student -->
+    <div class="glass-card">
+        {% if edit_student %}
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent-purple);">
+                <i data-lucide="edit-3"></i>
+                Edit Student Details
+            </h2>
+            <form action="{{ url_for('admin_edit_student', student_id=edit_student.id) }}" method="POST">
+                <div class="form-group">
+                    <label for="roll_no" class="form-label">Roll Number</label>
+                    <input type="text" id="roll_no" name="roll_no" class="form-control" value="{{ edit_student.roll_no }}" required readonly style="opacity: 0.7; cursor: not-allowed;">
+                    <small style="color: var(--text-muted); margin-top: 0.25rem; display: block;">Roll numbers cannot be modified.</small>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" value="{{ edit_student.name }}" required placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" value="{{ edit_student.email }}" required placeholder="e.g. john@university.edu">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="class_name" class="form-label">Class / Section</label>
+                    <input type="text" id="class_name" name="class_name" class="form-control" value="{{ edit_student.class_name }}" required placeholder="e.g. CS-2026">
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;"><i data-lucide="save"></i> Update</button>
+                    <a href="{{ url_for('admin_students') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        {% else %}
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent-indigo);">
+                <i data-lucide="user-plus"></i>
+                Register New Student
+            </h2>
+            <form action="{{ url_for('admin_add_student') }}" method="POST">
+                <div class="form-group">
+                    <label for="roll_no" class="form-label">Roll Number</label>
+                    <input type="text" id="roll_no" name="roll_no" class="form-control" required placeholder="e.g. STU1001">
+                </div>
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required placeholder="e.g. Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="e.g. jane@university.edu">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="class_name" class="form-label">Class / Section</label>
+                    <input type="text" id="class_name" name="class_name" class="form-control" required placeholder="e.g. CS-2026">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i data-lucide="plus-circle"></i> Add Student</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="glass-card">
+        <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="list"></i>
+            Student Directory
+        </h2>
+
+        {% if students %}
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Class</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">{{ student.roll_no }}</td>
+                                <td style="color: var(--text-primary);">{{ student.name }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.class_name }}</td>
+                                <td style="text-align: right; display: flex; justify-content: flex-end; gap: 0.5rem;">
+                                    <a href="{{ url_for('admin_students', edit=student.id) }}" class="btn btn-secondary btn-sm" title="Edit Student">
+                                        <i data-lucide="edit-2" style="width:14px; height:14px;"></i>
+                                    </a>
+                                    <form action="{{ url_for('admin_delete_student', student_id=student.id) }}" method="POST" style="display: inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete Student" data-confirm="Are you sure you want to delete this student? All their grade records and portal account will be permanently deleted.">
+                                            <i data-lucide="trash-2" style="width:14px; height:14px;"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 3rem 1.5rem; color: var(--text-muted);">
+                <i data-lucide="users" style="width: 48px; height: 48px; margin-bottom: 1rem; stroke-width: 1.5;"></i>
+                <h3>No Students Registered</h3>
+                <p style="font-size: 0.9rem; margin-top: 0.25rem;">Fill out the registration form to add your first student record.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
