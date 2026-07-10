@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EEE to IT Career Launcher</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">For EEE students who want an IT career</p>
+        <h1>Turn your engineering background into a strong IT career launchpad.</h1>
+        <p class="lead">
+          Learn the practical skills, build the right projects, and get ready for interviews with a roadmap designed for electrical and electronics students.
+        </p>
+        <div class="controls">
+          <label for="roleSelect">Choose your target path</label>
+          <select id="roleSelect">
+            <option value="software">Software Developer</option>
+            <option value="data">Data Analyst</option>
+            <option value="embedded">Embedded / IoT Engineer</option>
+            <option value="qa">QA / Automation Engineer</option>
+          </select>
+          <button id="planBtn">Generate 30-Day Plan</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Your personalized roadmap</h2>
+        <div id="roadmap" class="roadmap"></div>
+      </section>
+
+      <section class="card">
+        <h2>Weekly study plan</h2>
+        <div id="schedule" class="schedule"></div>
+      </section>
+
+      <section class="card">
+        <h2>Interview drills</h2>
+        <ul id="questions" class="questions"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Resume checklist</h2>
+        <div id="checklist" class="checklist"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
